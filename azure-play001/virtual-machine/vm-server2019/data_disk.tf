@@ -2,8 +2,8 @@
   name                  = "st${azurerm_virtual_machine.vm-server2019.name}-1"
   location              = azurerm_virtual_machine.vm-server2019.location
   resource_group_name   = azurerm_virtual_machine.vm-server2019.resource_group_name
-  disk_size_gb          = 60
-  storage_account_type  = "Standard_LRS"
+  disk_size_gb          = var.data_disk_size_gb
+  storage_account_type  = var.data_disk_type
   create_option         = "Empty"
 }
 

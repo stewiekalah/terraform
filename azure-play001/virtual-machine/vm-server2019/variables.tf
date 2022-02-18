@@ -20,3 +20,5 @@ variable "image_offer" {}
 variable "image_sku" {}
 variable "image_version" {}
 variable "delete_disk_on_termination" {}
+variable "data_disk_size_gb" {}
+variable "data_disk_type" {}

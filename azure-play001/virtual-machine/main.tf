@@ -44,6 +44,8 @@ module "vm" {
   image_sku                   = var.image_sku
   image_version               = var.image_version
   delete_disk_on_termination  = var.delete_disk_on_termination
+  data_disk_size_gb           = var.data_disk_size_gb
+  data_disk_type              = var.data_disk_type
 
   depends_on = [
     module.nsg
