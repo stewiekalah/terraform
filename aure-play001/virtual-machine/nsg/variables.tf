@@ -18,5 +18,6 @@ variable "nameconvention" {
   description = "Resource Type - Project - Location - Environment"
 }
 
-variable "vnet-dependancy" {
+variable "subnet_id" {
+  description = "Subnet ID Passed through from VNet Module"
 }

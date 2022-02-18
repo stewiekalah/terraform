@@ -20,7 +20,7 @@ module "nsg" {
     environment = "${var.environment}"
     nameconvention = "${local.naming}"
     rgname = "${azurerm_resource_group.vm.name}"
-    subnet_id =
+    subnet_id = module.vnet.subnet_id
     depends_on = [
       module.vnet
     ]
