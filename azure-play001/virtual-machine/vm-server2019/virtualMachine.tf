@@ -5,18 +5,18 @@
   network_interface_ids = [
     azurerm_network_interface.vm-server2019-nic.id
   ]
-  vm_size                           = "Standard_B4ms"
+  vm_size                           = var.vm_size
 
-  delete_os_disk_on_termination     = true
-  delete_data_disks_on_termination  = true
+  delete_os_disk_on_termination     = var.delete_disk_on_termination
+  delete_data_disks_on_termination  = var.delete_disk_on_termination
 
   os_profile_windows_config {}
 
   storage_image_reference {
-    publisher                       = "MicrosoftWindowsServer"
-    offer                           = "WindowsServer"
-    sku                             = "2019-Datacenter-smalldisk"
-    version                         = "latest"
+    publisher                       = var.image_publisher
+    offer                           = var.image_offer
+    sku                             = var.image_sku
+    version                         = var.image_version
   }
   storage_os_disk {
     name                            = "st-disk0-${var.nameconvention}"
@@ -25,8 +25,8 @@
     managed_disk_type               = "Standard_LRS"
   }
   os_profile {
-    computer_name                   = "vm-test-01"
-    admin_username                  = "stuart"
+    computer_name                   = var.computer_name
+    admin_username                  = var.adminUser
     admin_password                  = var.adminPass
   }
 
