@@ -17,3 +17,4 @@ I will also do my best to comment what each TF file does.
 5. Creates a NIC for a Virtual Machine
 6. Creates a Windows Server 2019 SmallDisk Virtual Machine, assigned to the NIC previously created
 7. Sets the local administrator password to the one stored in Azure KeyVault.
+8. Creates and attaches a data disk to the virtual machine

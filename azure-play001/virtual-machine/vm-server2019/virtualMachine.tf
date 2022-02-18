@@ -19,7 +19,7 @@
     version                         = var.image_version
   }
   storage_os_disk {
-    name                            = "st${azurerm_virtual_machine.vm-server2019.name}-0"
+    name                            = "stvm-${var.nameconvention}-0"
     caching                         = "ReadWrite"
     create_option                   = "FromImage"
     managed_disk_type               = "Standard_LRS"
