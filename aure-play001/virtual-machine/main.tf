@@ -6,8 +6,8 @@ resource "azurerm_resource_group" "vm" {
 
 module "vnet" {
     source = "./vnet"
-    location = var.location
-    project = var.project
-    environment = var.environment
-    rgname = azurerm_resource_group.vm.name
+    location = "${var.location}"
+    project = "${var.project}"
+    environment = "${var.environment}"
+    rgname = "${azurerm_resource_group.vm.name}"
 }
