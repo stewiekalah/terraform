@@ -9,8 +9,6 @@
 module "vnet" {
     source          = "./vnet"
     location        = var.location
-    project         = var.project
-    environment     = var.environment
     rgname          = module.resource-group.name
     nameconvention  = local.naming
 
@@ -22,8 +20,6 @@ module "vnet" {
 module "nsg" {
     source = "./nsg"
     location = "${var.location}"
-    project = "${var.project}"
-    environment = "${var.environment}"
     nameconvention = "${local.naming}"
     rgname = module.resource-group.name
     subnet_id = module.vnet.subnet_id

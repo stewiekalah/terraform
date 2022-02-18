@@ -1,6 +1,8 @@
-﻿provider "azurerm" {
-  # AzureRM provider 2.x
-  version = "~>2.0"
-  # v2.x required "features" block
-  features {}
+﻿terraform {
+  required_providers {
+    azure = {
+      source  = "azurerm"
+      version = "~>2.96.0"
+    }
+  }
 }
