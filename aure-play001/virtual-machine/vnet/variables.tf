@@ -15,5 +15,5 @@ variable "rgname" {
 }
 
 variable "nameconvention" {
-  description = "vnet name"
+  description = "Resource Type - Project - Location - Environment"
 }

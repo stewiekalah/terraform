@@ -9,9 +9,9 @@
 resource "azurerm_subnet" "vnet" {
   name = "snet-vm"
   address_prefixes = [ "192.168.128.0/24" ]
-  virtual_network_name = "vnet-${var.nameconvention}"
+  virtual_network_name = azurerm_virtual_network.vnet.name
   resource_group_name = var.rgname
   depends_on = [
-      "vnet-${var.nameconvention}"
+      azurerm_virtual_network.vnet
   ]
 }

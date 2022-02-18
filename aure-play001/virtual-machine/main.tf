@@ -10,5 +10,5 @@ module "vnet" {
     project = "${var.project}"
     environment = "${var.environment}"
     rgname = "${azurerm_resource_group.vm.name}"
-    nameconvention = "vnet-${var.project}-${substr(var.location,0,3)}-${var.environment}"
+    nameconvention = "${var.project}-${substr(var.location,0,3)}-${var.environment}"
 }
