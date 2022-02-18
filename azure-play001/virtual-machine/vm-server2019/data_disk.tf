@@ -1,5 +1,5 @@
 ﻿resource "azurerm_managed_disk" "data_disk" {
-  name                  = "disk1-${azurerm_virtual_machine.vm-server2019.vm_name}"
+  name                  = "disk1-${azurerm_virtual_machine.vm-server2019.name}"
   location              = azurerm_virtual_machine.vm-server2019.location
   resource_group_name   = azurerm_virtual_machine.vm-server2019.resource_group_name
   disk_size_gb          = 60
