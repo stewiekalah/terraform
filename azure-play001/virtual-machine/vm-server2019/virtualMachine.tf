@@ -12,8 +12,8 @@
 
   storage_image_reference {
     publisher = "MicrosoftWindowsServer"
-    offer     = "MicrosoftWindowsServer"
-    sku       = "[smalldisk] Windows Server 2019 Datacenter (2019-Datacenter-smalldisk)"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter-smalldisk"
     version   = "latest"
   }
   storage_os_disk {

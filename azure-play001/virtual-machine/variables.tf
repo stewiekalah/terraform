@@ -20,6 +20,19 @@ variable "adminUser" {
   default = "LocalAdministrator"
 }
 
-variable "adminPass" {
+/* variable "adminPass" {
+  sensitive = true
+} */
+
+variable "kv_name" {
+  default = "kv-ansellpw-live"
+}
+
+variable "kv_rg" {
+  default = "ansell.pw"
+}
+
+variable "kv_secret-AdminPassword" {
+  default = "Terraform-VMDeploy-AdminPassword"
   sensitive = true
 }

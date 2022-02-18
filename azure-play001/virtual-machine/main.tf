@@ -41,7 +41,7 @@ module "vm" {
   rgname = module.resource-group.name
   subnet_id = module.vnet.subnet_id
   adminUser = var.adminUser
-  adminPass = var.adminPass
+  adminPass = data.azurerm_key_vault_secret.kv_secret.value
 
   depends_on = [
     module.nsg
