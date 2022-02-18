@@ -29,6 +29,19 @@ module "nsg" {
     ]
 }
 
+module "keyvault" {
+  source                      = "./keyvault"
+  project         = var.project
+  environment     = var.environment
+  location        = var.location
+  nameconvention  = local.naming
+  rgname          = module.resource-group.name
+
+  depends_on = [
+    module.resource-group
+  ]
+}
+
 module "vm" {
   source                      = "./vm-server2019"
   location                    = var.location
