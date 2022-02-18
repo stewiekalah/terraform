@@ -10,5 +10,15 @@ module "vnet" {
     project = "${var.project}"
     environment = "${var.environment}"
     rgname = "${azurerm_resource_group.vm.name}"
-    nameconvention = "${var.project}-${substr(var.location,0,3)}-${var.environment}"
+    nameconvention = "${local.naming}"
+}
+
+module "nsg" {
+    source = "./nsg"
+    location = "${var.location}"
+    project = "${var.project}"
+    environment = "${var.environment}"
+    rgname = "${azurerm_resource_group.vm.name}"
+    nameconvention = "${local.naming}"
+    vnet-dependancy = module.vnet.subnet
 }
