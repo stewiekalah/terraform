@@ -5,6 +5,6 @@
 }
 
 data "azurerm_key_vault_secret" "kv_secret" {
-  name = var.kv_secret-AdminPassword
-  key_vault_id = data.azurerm_key_vault.ansellpw.id
+  name                = var.kv_secret-AdminPassword
+  key_vault_id        = data.azurerm_key_vault.ansellpw.id
 }

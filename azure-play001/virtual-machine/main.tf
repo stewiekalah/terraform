@@ -18,26 +18,27 @@ module "vnet" {
 }
 
 module "nsg" {
-    source = "./nsg"
-    location = "${var.location}"
-    nameconvention = "${local.naming}"
-    rgname = module.resource-group.name
-    subnet_id = module.vnet.subnet_id
+    source          = "./nsg"
+    location        = var.location
+    nameconvention  = local.naming
+    rgname          = module.resource-group.name
+    subnet_id       = module.vnet.subnet_id
+
     depends_on = [
       module.vnet
     ]
 }
 
 module "vm" {
-  source = "./vm-server2019"
-  location = "${var.location}"
-  project = "${var.project}"
-  environment = "${var.environment}"
-  nameconvention = "${local.naming}"
-  rgname = module.resource-group.name
-  subnet_id = module.vnet.subnet_id
-  adminUser = var.adminUser
-  adminPass = data.azurerm_key_vault_secret.kv_secret.value
+  source            = "./vm-server2019"
+  location          = var.location
+  project           = var.project
+  environment       = var.environment
+  nameconvention    = local.naming
+  rgname            = module.resource-group.name
+  subnet_id         = module.vnet.subnet_id
+  adminUser         = var.adminUser
+  adminPass         = data.azurerm_key_vault_secret.kv_secret.value
 
   depends_on = [
     module.nsg

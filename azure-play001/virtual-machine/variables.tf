@@ -1,34 +1,34 @@
 ﻿variable "location" {
-  description = "Define a location for Azure resources"
-  type = string
-  default = "ukwest"
+  description         = "Define a location for Azure resources"
+  type                = string
+  default             = "ukwest"
 }
 
 variable "project" {
-  description = "Project Name used in naming convention"
-  type = string
-  default = "vm"
+  description         = "Project Name used in naming convention"
+  type                = string
+  default             = "vm"
 }
 
 variable "environment" {
-  description = "Set the environment (Prod/Dev)"
-  type = string
-  default = "test"
+  description         = "Set the environment (Prod/Dev)"
+  type                = string
+  default             = "test"
 }
 
 variable "adminUser" {
-  default = "LocalAdministrator"
+  default             = "LocalAdministrator"
 }
 
 variable "kv_name" {
-  default = "kv-ansellpw-live"
+  default             = "kv-ansellpw-live"
 }
 
 variable "kv_rg" {
-  default = "ansell.pw"
+  default             = "ansell.pw"
 }
 
 variable "kv_secret-AdminPassword" {
-  default = "Terraform-VMDeploy-AdminPassword"
-  sensitive = true
+  default             = "Terraform-VMDeploy-AdminPassword"
+  sensitive           = true
 }
