@@ -53,12 +53,23 @@ variable "image_publisher" {
 variable "image_offer" {
   default             = "WindowsServer"
 }
+
 variable "image_sku" {
   default             = "2019-Datacenter-smalldisk"
 }
+
 variable "image_version" {
   default             = "latest"
 }
+
 variable "delete_disk_on_termination" {
   default             = true
+}
+
+variable "data_disk_size_gb" {
+  default             = 60
+}
+
+variable "data_disk_type" {
+  default             = "Standard_LRS"
 }
