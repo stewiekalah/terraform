@@ -13,3 +13,7 @@ variable "environment" {
 variable "rgname" {
   description = "resource_group_name"
 }
+
+variable "nameconvention" {
+  description = "vnet name"
+}
