@@ -11,4 +11,7 @@ resource "azurerm_subnet" "vnet" {
   address_prefixes = [ "192.168.128.0/24" ]
   virtual_network_name = "vnet-${var.nameconvention}"
   resource_group_name = var.rgname
+  depends_on = [
+      "vnet-${var.nameconvention}"
+  ]
 }
