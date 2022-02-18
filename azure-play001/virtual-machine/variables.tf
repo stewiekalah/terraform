@@ -20,10 +20,6 @@ variable "adminUser" {
   default = "LocalAdministrator"
 }
 
-/* variable "adminPass" {
-  sensitive = true
-} */
-
 variable "kv_name" {
   default = "kv-ansellpw-live"
 }
