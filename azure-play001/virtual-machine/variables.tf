@@ -7,7 +7,7 @@
 variable "project" {
   description         = "Project Name used in naming convention"
   type                = string
-  default             = "vm"
+  default             = "play001"
 }
 
 variable "environment" {
