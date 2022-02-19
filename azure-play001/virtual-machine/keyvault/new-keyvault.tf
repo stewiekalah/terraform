@@ -1,6 +1,6 @@
 ﻿# Randomise KeyVault ID.
 resource "random_string" "kv_idref" {
-  length = 3
+  length = 5
   number = true
 
 }
