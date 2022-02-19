@@ -23,20 +23,6 @@ variable "adminUser" {
   default             = "LocalAdministrator"
 }
 
-## Existing Azure KeyVault Variables
-variable "kv_name" {
-  default             = "kv-ansellpw-live"
-}
-
-variable "kv_rg" {
-  default             = "ansell.pw"
-}
-
-variable "kv_secret-AdminPassword" {
-  default             = "Terraform-VMDeploy-AdminPassword"
-  sensitive           = true
-}
-
 # Virtual Machine Variables
 variable "computer_name" {
   default             = "vm-test-01"
