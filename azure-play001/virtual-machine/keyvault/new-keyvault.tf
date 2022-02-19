@@ -2,12 +2,13 @@
 resource "random_string" "kv_idref" {
   length = 5
   number = true
+  special = false
 
 }
 
 #Keyvault Creation
 resource "azurerm_key_vault" "kv" {
-  name                        ="kv-${var.project}-${substr(var.location,0,3)}-${random_string.kv_idref.result}"
+  name                        ="kv-${var.project}-${random_string.kv_idref.result}"
   location                    = var.location
   resource_group_name         = var.rgname
   enabled_for_disk_encryption = true
