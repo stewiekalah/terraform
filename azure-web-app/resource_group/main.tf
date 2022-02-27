@@ -1,15 +1,11 @@
-﻿provider "azurecaf" {
-  features {}
-}
-
-resource "azurecaf_naming_convention" "web-app" {
-  resource_type     = "rg"
+﻿resource "azurecaf_naming_convention" "web-app" {
+  prefix            = "rg"
   name              = var.project
   postfix           = var.stage
   convention        = "cafclassic"
 }
 
 resource "azurerm_resource_group" "web-app" {
-  name      = "${var.prefix}-${var.project}-${var.stage}"
+  name      = azurerm_resource_group.web-app
   location  = var.location
 }
