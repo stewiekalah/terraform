@@ -12,14 +12,10 @@ variable "location" {
 }
 
 variable "global_vars" {
-  type = list(object({
-      project       = string
-      stage         = string
-      locale        = string
-  }))
-  default = [ {
+  type = map
+  default = {
     locale = "ukwest"
     project = "webapp"
     stage = "dev"
-  } ]
+  }
 }
