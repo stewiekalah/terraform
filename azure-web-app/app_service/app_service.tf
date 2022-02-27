@@ -10,6 +10,14 @@ resource "azurerm_app_service" "webapp_app_service" {
     resource_group_name     = var.rg_name
     app_service_plan_id     = azurerm_app_service_plan.webapp_app_service_plan.id
 
+  storage_account {
+    account_name = var.st_name
+    share_name = "website"
+    type = "AzureBlob"
+    name = var.st_id
+    access_key = var.st_access
+  }
+
     depends_on = [
       azurerm_app_service_plan.webapp_app_service_plan
     ]
