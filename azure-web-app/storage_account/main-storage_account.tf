@@ -34,7 +34,7 @@ resource "azurerm_storage_blob" "webapp_storage" {
   storage_container_name = azurerm_storage_container.webapp_blob.name
   type                   = "Block"
   content_type           = "text/html"
-  source                 = "index.html"
+  source                 = "resources/index.html"
 
   depends_on = [
     azurerm_storage_container.webapp_blob
