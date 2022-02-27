@@ -16,7 +16,7 @@ resource "azurerm_app_service" "webapp_app_service" {
     type = "AzureBlob"
     name = var.st_id
     access_key = var.st_access
-    mount_path = "/site/wwwroot"
+    mount_path = "/home/site/wwwroot"
   }
 
     depends_on = [
