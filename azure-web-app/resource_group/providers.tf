@@ -6,3 +6,4 @@
     }
   }
 }
+provider "azurecaf" {}

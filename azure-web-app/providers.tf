@@ -17,5 +17,4 @@ provider "azure" {
 }
 
 provider "azurecaf" {
-    features {}
 }
