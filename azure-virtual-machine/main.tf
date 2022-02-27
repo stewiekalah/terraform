@@ -1,43 +1,66 @@
-﻿provider "azurerm" {
-  features {
-  }
+﻿module "resource-group" {
+  source            = "./resource-group"
+  project           = var.project
+  env               = var.environment
+  location          = var.location
+
 }
 
-resource "azurerm_resource_group" "tftest" {
-  location = var.location
-  name = "rg-${var.project}-${var.stage}"
+module "vnet" {
+    source          = "./vnet"
+    location        = var.location
+    rgname          = module.resource-group.name
+    nameconvention  = local.naming
+
+    depends_on = [
+      module.resource-group
+    ]
 }
 
-resource "azurerm_network_security_group" "tftest" {
-  name = "nsg-${var.project}-${substr(azurerm_resource_group.tftest.location,0,3)}-${var.stage}"
-  location = azurerm_resource_group.tftest.location
-  resource_group_name = azurerm_resource_group.tftest.name
+module "nsg" {
+    source          = "./nsg"
+    location        = var.location
+    nameconvention  = local.naming
+    rgname          = module.resource-group.name
+    subnet_id       = module.vnet.subnet_id
+
+    depends_on = [
+      module.vnet
+    ]
 }
 
-resource "azurerm_virtual_network" "tftest" {
-  name = "vnet-${var.project}-${substr(azurerm_resource_group.tftest.location,0,3)}-${var.stage}"
-  location = azurerm_resource_group.tftest.location
-  resource_group_name = azurerm_resource_group.tftest.name
-  address_space = [ "192.168.128.0/18" ]
+module "keyvault" {
+  source                      = "./keyvault"
+  project         = var.project
+  environment     = var.environment
+  location        = var.location
+  nameconvention  = local.naming
+  rgname          = module.resource-group.name
+
   depends_on = [
-    azurerm_network_security_group.tftest
+    module.resource-group
   ]
 }
 
-resource "azurerm_subnet" "tftest" {
-  name = "snet-vm"
-  address_prefixes = [ "192.168.128.0/24" ]
-  virtual_network_name = azurerm_virtual_network.tftest.name
-  resource_group_name = azurerm_resource_group.tftest.name
-  depends_on = [
-    azurerm_virtual_network.tftest
-  ]
-}
+module "vm" {
+  source                      = "./vm-server2019"
+  location                    = var.location
+  nameconvention              = local.naming
+  rgname                      = module.resource-group.name
+  subnet_id                   = module.vnet.subnet_id
+  adminUser                   = var.adminUser
+  adminPass                   = data.azurerm_key_vault_secret.kv_secret.value
+  computer_name               = var.computer_name
+  vm_size                     = var.vm_size
+  image_publisher             = var.image_publisher
+  image_offer                 = var.image_offer
+  image_sku                   = var.image_sku
+  image_version               = var.image_version
+  delete_disk_on_termination  = var.delete_disk_on_termination
+  data_disk_size_gb           = var.data_disk_size_gb
+  data_disk_type              = var.data_disk_type
 
-resource "azurerm_subnet_network_security_group_association" "tftest" {
-  network_security_group_id = azurerm_network_security_group.tftest.id
-  subnet_id = azurerm_subnet.tftest.id
   depends_on = [
-    azurerm_subnet.tftest
+    module.nsg
   ]
 }
