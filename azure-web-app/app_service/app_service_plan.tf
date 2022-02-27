@@ -13,4 +13,7 @@ resource "azurerm_app_service_plan" "webapp_app_service_plan" {
       size = "S1"
       tier = "Standard"
     }
+
+    kind = "Linux"
+    reserved = true
 }

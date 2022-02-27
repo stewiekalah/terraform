@@ -1,3 +1,1 @@
-﻿variable "project" {}
-variable "stage" {}
-variable "location" {}
+﻿variable "global_vars" {}

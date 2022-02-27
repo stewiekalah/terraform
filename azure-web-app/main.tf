@@ -1,8 +1,6 @@
 ﻿module "resource_group" {
     source      = "./resource_group"
-    project     = var.project
-    stage       = var.stage
-    location    = var.location
+    global_vars = var.global_vars
 }
 
 module "storage_account" {
