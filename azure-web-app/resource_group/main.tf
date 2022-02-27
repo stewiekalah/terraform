@@ -1,6 +1,6 @@
 ﻿resource "azurecaf_name" "webapp" {
   resource_type     = "azurerm_resource_group"
-  name              = "${var.project}-${var.location}"
+  name              = "${var.project}-${var.stage}"
   clean_input       = true
 }
 

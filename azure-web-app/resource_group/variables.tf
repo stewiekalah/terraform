@@ -1,4 +1,3 @@
-﻿#variable "prefix" {}
-variable "project" {}
+﻿variable "project" {}
 variable "stage" {}
 variable "location" {}
