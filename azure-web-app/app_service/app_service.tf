@@ -10,14 +10,21 @@ resource "azurerm_app_service" "webapp_app_service" {
     resource_group_name     = var.rg_name
     app_service_plan_id     = azurerm_app_service_plan.webapp_app_service_plan.id
 
-  storage_account {
-    account_name = var.st_name
-    share_name = "website"
-    type = "AzureBlob"
-    name = var.st_id
-    access_key = var.st_access
-    mount_path = "/home/site/wwwroot"
-  }
+    site_config {
+      ftps_state            = "Disabled"
+      linux_fx_version      = "PHP|7.4"
+    }
+
+    https_only              = true
+
+    storage_account {
+      account_name = var.st_name
+      share_name = "website"
+      type = "AzureBlob"
+      name = var.st_id
+      access_key = var.st_access
+      mount_path = "/home/site/wwwroot"
+    }
 
     depends_on = [
       azurerm_app_service_plan.webapp_app_service_plan
