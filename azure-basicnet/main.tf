@@ -1,7 +1,7 @@
 ﻿module "net" {
-    source                              = "./net"
-    group_name                          = "net"
-    global_vars                         = var.global_vars
+    source      = "./net"
+    group_name  = "net"
+    global_vars = var.global_vars
 
     vnet_configuration_address_space    = var.vnet_configuration_address_space
     vnet_subnet_servers                 = var.vnet_subnet_servers
@@ -10,10 +10,19 @@
 }
 
 module "vault" {
-    source                          = "./vault"
-    group_name                      = "vault"
-    global_vars                     = var.global_vars
+    source      = "./vault"
+    group_name  = "vault"
+    global_vars = var.global_vars
 
     config_keyvault                 = var.config_keyvault
     config_keyvault_permissions     = var.config_keyvault_permissions
+}
+
+module "storage" {
+    source      = "./storage"
+    group_name  = "storage"
+    global_vars = var.global_vars
+
+    config_storageaccount           = var.config_storageaccount
+    config_storageaccount_blob      = var.config_storageaccount_blob
 }
