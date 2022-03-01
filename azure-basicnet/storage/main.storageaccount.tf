@@ -1,25 +1,29 @@
 ﻿resource "azurecaf_name" "storageaccount" {
+  for_each=var.config_storageaccount
   resource_type     = "azurerm_storage_account"
-  name              = "${var.group_name}-${var.global_vars.stage}-${var.global_vars.locale}"
+  name              = "${each.key}-${var.global_vars.stage}-${each.value.location}"
   clean_input       = true
   random_length     = 6
 }
 
 resource "azurerm_storage_account" "storageaccount" {
-  name                = azurecaf_name.storageaccount.result
+  for_each=var.config_storageaccount
+  name                = azurecaf_name.storageaccount[each.key].result
   resource_group_name = azurerm_resource_group.storageaccount.name
 
-  location                 = var.global_vars.locale
-  account_tier             = var.config_storageaccount.account_tier
-  account_replication_type = var.config_storageaccount.account_replication_type
-  account_kind             = var.config_storageaccount.account_kind
-  allow_blob_public_access = var.config_storageaccount.allow_blob_public_access
+  location                 = each.value.location
+  account_tier             = each.value.account_tier
+  account_replication_type = each.value.account_replication_type
+  account_kind             = each.value.account_kind
+  allow_blob_public_access = each.value.allow_blob_public_access
 }
 
 resource "azurerm_storage_container" "storageaccount_blob" {
-   name                   = var.config_storageaccount_blob.name
-   storage_account_name   = azurerm_storage_account.storageaccount.name
-   container_access_type  = var.config_storageaccount_blob.container_access_type
+  for_each=var.config_storageaccount
+   name                   = each.value.blob.name
+   storage_account_name   = azurerm_storage_account.storageaccount[each.key].name
+   container_access_type  = each.value.blob.container_access_type
+
 }
 
 #Add index.html to blob storage

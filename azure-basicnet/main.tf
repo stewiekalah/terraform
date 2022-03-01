@@ -24,5 +24,4 @@ module "storage" {
     global_vars = var.global_vars
 
     config_storageaccount           = var.config_storageaccount
-    config_storageaccount_blob      = var.config_storageaccount_blob
 }
