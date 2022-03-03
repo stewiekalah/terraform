@@ -4,6 +4,13 @@
   clean_input       = true
 }
 
+resource "azurecaf_name" "vnet_subnet" {
+  for_each = var.vnet_subnets
+  resource_type     = "azurerm_subnet"
+  name              = each.key
+  clean_input       = true
+}
+
 resource "azurerm_virtual_network" "vnet" {
   name                  = azurecaf_name.vnet.result
   location              = var.global_vars.locale
@@ -17,7 +24,7 @@ resource "azurerm_virtual_network" "vnet" {
 
 resource "azurerm_subnet" "vnet_subnet" {
   for_each = var.vnet_subnets
-  name                  = each.value.name
+  name                  = azurecaf_name.vnet_subnet[each.key].result
   address_prefixes      = each.value.addresses
   virtual_network_name  = azurerm_virtual_network.vnet.name
   resource_group_name   = azurecaf_name.rg.result

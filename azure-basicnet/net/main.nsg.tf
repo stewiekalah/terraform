@@ -1,19 +1,31 @@
 ﻿resource "azurecaf_name" "net" {
-  resource_type     = "azurerm_network_security_group"
-  name              = "${var.group_name}-${var.global_vars.stage}-${var.global_vars.locale}"
-  clean_input       = true
+  for_each = var.vnet_nsg_rules
+    resource_type     = "azurerm_network_security_group"
+    name              = "${each.key}-${var.group_name}-${var.global_vars.stage}-${var.global_vars.locale}"
+    clean_input       = true
 }
 
 resource "azurerm_network_security_group" "net" {
-  name                      = azurecaf_name.net.result
-  location                  = var.global_vars.locale
-  resource_group_name       = azurerm_resource_group.net.name
+  for_each = var.vnet_nsg_rules
+    name                      = azurecaf_name.net[each.key].result
+    location                  = var.global_vars.locale
+    resource_group_name       = azurerm_resource_group.net.name
 
 }
 
-resource "azurerm_network_security_rule" "net" {
-  for_each                    = var.vnet_nsg_rules
-  name                        = each.key
+resource "azurerm_network_security_rule" "net_rule" {
+  for_each                    = {
+    for map in flatten([
+      for subnet_name, nsg_rule in var.vnet_nsg_rules : [
+        for rule_name, rule_values in nsg_rule :
+        {
+          name  = rule_name
+          value = rule_values
+        }
+      ]
+    ]) : map.name => map.value
+  }
+  name                        = each.value.name
   direction                   = each.value.direction
   access                      = each.value.access
   priority                    = each.value.priority
@@ -23,12 +35,12 @@ resource "azurerm_network_security_rule" "net" {
   source_address_prefix       = each.value.source_address_prefix
   destination_address_prefix  = each.value.destination_address_prefix
   resource_group_name         = azurerm_resource_group.net.name
-  network_security_group_name = azurerm_network_security_group.net.name
+  network_security_group_name = azurerm_network_security_group.net[each.key].name
 }
 
 resource "azurerm_subnet_network_security_group_association" "net" {
   for_each = var.vnet_subnets
-    network_security_group_id = azurerm_network_security_group.net.id
+    network_security_group_id = azurerm_network_security_group.net[each.key].id
     subnet_id                 = azurerm_subnet.vnet_subnet[each.key].id
 
   depends_on = [
