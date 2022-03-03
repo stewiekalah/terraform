@@ -34,31 +34,31 @@ variable "vnet_subnets" {
             destination_address_prefix = "*"
           }
 
-          sql = {
-            name                       = "sql"
-            priority                   = 101
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "1433"
-            source_address_prefix      = "SqlManagement"
-            destination_address_prefix = "192.168.2.0/24"
-          }
-
-          http = {
-            name                       = "http"
-            priority                   = 201
-            direction                  = "Inbound"
-            access                     = "Allow"
-            protocol                   = "Tcp"
-            source_port_range          = "*"
-            destination_port_range     = "80"
-            source_address_prefix      = "*"
-            destination_address_prefix = "192.168.2.0/24"
-          }
-        }
+      sql = {
+        name                       = "sql"
+        priority                   = 101
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "1433"
+        source_address_prefix      = "SqlManagement"
+        destination_address_prefix = "192.168.2.0/24"
       }
+
+      http = {
+        name                       = "http"
+        priority                   = 201
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "80"
+        source_address_prefix      = "*"
+        destination_address_prefix = "192.168.2.0/24"
+      }
+    }
+    }
       vault = {
         name = "vault"
         addresses = [ "192.168.129.0/24" ]
