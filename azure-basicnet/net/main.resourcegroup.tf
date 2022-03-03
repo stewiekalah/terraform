@@ -4,7 +4,7 @@
   clean_input       = true
 }
 
- resource "azurerm_resource_group" "net" {
+resource "azurerm_resource_group" "net" {
   name      = azurecaf_name.rg.result
   location  = var.global_vars.locale
 }

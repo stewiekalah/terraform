@@ -27,8 +27,9 @@ resource "azurerm_network_security_rule" "net" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "net" {
-  network_security_group_id = azurerm_network_security_group.net.id
-  subnet_id                 = azurerm_subnet.vnet_subnet.id
+  for_each = var.vnet_subnets
+    network_security_group_id = azurerm_network_security_group.net.id
+    subnet_id                 = azurerm_subnet.vnet_subnet[each.key].id
 
   depends_on = [
     azurerm_network_security_group.net,

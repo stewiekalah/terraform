@@ -16,8 +16,9 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "vnet_subnet" {
-  name                  = var.vnet_subnet_servers.name
-  address_prefixes      = var.vnet_subnet_servers_addresses
+  for_each = var.vnet_subnets
+  name                  = each.value.name
+  address_prefixes      = each.value.addresses
   virtual_network_name  = azurerm_virtual_network.vnet.name
   resource_group_name   = azurecaf_name.rg.result
 

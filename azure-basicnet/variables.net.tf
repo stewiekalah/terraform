@@ -15,6 +15,19 @@ variable "vnet_subnet_servers_addresses" {
   default =  [ "192.168.128.0/24" ]
 }
 
+variable "vnet_subnets" {
+  default = {
+      servers = {
+        name = "snet-servers"
+        addresses = [ "192.168.128.0/24" ]
+      }
+      vault = {
+        name = "snet-vault"
+        addresses = [ "192.168.129.0/24" ]
+      }
+  }
+}
+
 variable "vnet_nsg_rules" {
   default = {
 

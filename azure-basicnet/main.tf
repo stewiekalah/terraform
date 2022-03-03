@@ -4,6 +4,7 @@
     global_vars = var.global_vars
 
     vnet_configuration_address_space    = var.vnet_configuration_address_space
+    vnet_subnets                        = var.vnet_subnets
     vnet_subnet_servers                 = var.vnet_subnet_servers
     vnet_subnet_servers_addresses       = var.vnet_subnet_servers_addresses
     vnet_nsg_rules                      = var.vnet_nsg_rules
