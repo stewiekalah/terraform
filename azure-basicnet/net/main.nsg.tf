@@ -13,31 +13,6 @@ resource "azurerm_network_security_group" "net" {
 
 }
 
-resource "azurerm_network_security_rule" "net_rule" {
-  for_each                    = {
-    for map in flatten([
-      for subnet_name, nsg_rule in var.vnet_nsg_rules : [
-        for rule_name, rule_values in nsg_rule :
-        {
-          name  = rule_name
-          value = rule_values
-        }
-      ]
-    ]) : map.name => map.value
-  }
-  name                        = each.value.name
-  direction                   = each.value.direction
-  access                      = each.value.access
-  priority                    = each.value.priority
-  protocol                    = each.value.protocol
-  source_port_range           = each.value.source_port_range
-  destination_port_range      = each.value.destination_port_range
-  source_address_prefix       = each.value.source_address_prefix
-  destination_address_prefix  = each.value.destination_address_prefix
-  resource_group_name         = azurerm_resource_group.net.name
-  network_security_group_name = azurerm_network_security_group.net[each.key].name
-}
-
 resource "azurerm_subnet_network_security_group_association" "net" {
   for_each = var.vnet_subnets
     network_security_group_id = azurerm_network_security_group.net[each.key].id
