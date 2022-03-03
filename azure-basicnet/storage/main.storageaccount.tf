@@ -19,7 +19,10 @@ resource "azurerm_storage_account" "storageaccount" {
 }
 
 resource "azurerm_storage_container" "storageaccount_blob" {
-  for_each=var.config_storageaccount
+  for_each= {
+    for key, storageaccount in var.config_storageaccount :
+    key => storageaccount if storageaccount.blob.name != null
+  }
    name                   = each.value.blob.name
    storage_account_name   = azurerm_storage_account.storageaccount[each.key].name
    container_access_type  = each.value.blob.container_access_type

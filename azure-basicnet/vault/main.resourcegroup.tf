@@ -5,6 +5,6 @@
 }
 
  resource "azurerm_resource_group" "vault" {
-  name      = azurecaf_name.vault.result
+  name      = azurecaf_name.rg.result
   location  = var.global_vars.locale
 }

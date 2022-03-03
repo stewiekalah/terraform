@@ -11,8 +11,8 @@
       allow_blob_public_access = true
 
       blob = {
-        name = "website"
-        container_access_type = "blob"
+        name = null
+        container_access_type = null
       }
     }
 
@@ -25,8 +25,24 @@
       allow_blob_public_access  = true
 
       blob = {
-        name = "website"
+        name = "test"
         container_access_type = "blob"
+      }
+
+
+    }
+
+    remove = {
+      name                      = "noblob"
+      location                  = "ukwest"
+      account_tier              = "Standard"
+      account_replication_type  = "LRS"
+      account_kind              = "StorageV2"
+      allow_blob_public_access  = true
+
+      blob = {
+        name = null
+        container_access_type = null
       }
 
 
