@@ -7,4 +7,5 @@ output "subnet" {
         id = [for subnet in azurerm_subnet.vnet_subnet : subnet.id]
         name = [for subnet in azurerm_subnet.vnet_subnet : subnet.name]
     }
+    sensitive = true
 }
