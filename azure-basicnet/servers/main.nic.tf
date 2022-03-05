@@ -1,7 +1,7 @@
 ﻿resource "azurecaf_name" "nic" {
     for_each=var.config_server_windows
         resource_type     = "azurerm_network_interface"
-        name              = "${each.value.hostname}-${var.global_vars.stage}-${var.global_vars.locale}"
+        name              = "${each.value.hostname}-${var.global_vars.stage}-${var.global_vars.locale}-${count.index}"
         clean_input       = true
 }
 
@@ -11,9 +11,14 @@ resource "azurerm_network_interface" "servers_nic" {
         location            = var.global_vars.locale
         resource_group_name = module.net.resource_group_name
 
-        ip_configuration {
-            name                          = "ipConfig1"
-            subnet_id                     = "${var.subnet_id}"
+        dynamic "ip_configuration" {
+            for_each = merge(
+                { for nic in var.config_server_windows : nic => "name" },
+                { for nic in module.net.subnet : nic => "id" },
+            )
+
+            name                          = "ipConfig${count.index}"
+            subnet_id                     = each.value.id
             private_ip_address_allocation = "Dynamic"
         }
 }

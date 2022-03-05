@@ -1,0 +1,31 @@
+﻿resource "azurerm_network_security_rule" "net_rule" {
+  for_each= {
+   for map in flatten([
+    for subnet_name,subnet_values in var.vnet_subnets : [
+      for rule_name, rule_values in lookup(subnet_values, "nsg_rules", {}) :
+      {
+        key = subnet_name
+        value = tomap(rule_values)
+      }
+    ]
+  ]) : map.key => map.value...
+
+  }
+  name                        = each.value.name
+  direction                   = lookup(each.value, "direction")
+  access                      = lookup(each.value, "access")
+  priority                    = lookup(each.value,"priority")
+  protocol                    = lookup(each.value,"protocol")
+  source_port_range           = lookup(each.value,"source_port_range")
+  destination_port_range      = lookup(each.value,"destination_port_range")
+  source_address_prefix       = lookup(each.value,"source_address_prefix")
+  destination_address_prefix  = lookup(each.value,"destination_address_prefix")
+  resource_group_name         = azurerm_resource_group.net.name
+
+  network_security_group_name = azurerm_network_security_group.net[each.key].name
+
+  depends_on = [
+    azurerm_network_security_group.net
+  ]
+
+}
